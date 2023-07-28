@@ -1,23 +1,40 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
+use Symfony\Component\HttpFoundation\Response;
+use ApiPlatform\Symfony\Bundle\Test\Response as ApiTestResponse;
 
-class MakerControllerTest extends WebTestCase
+class MakerControllerTest extends ApiTestCase
 {
-    public function testShow(): void
+    use UserTrait;
+
+    public function testListUnauthorized()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/vehicles/1');
+        $client->request('GET', '/makers');
 
-        $this->assertResponseIsSuccessful();
+        $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function testEdit(): void
+    public function testListForbidden()
     {
         $client = static::createClient();
-        $crawler = $client->request('PATCH', '/vehicles/1');
+        $user = $this->getUser('user@example.com');       
+        $client->loginUser($user);
+        $client->request('GET', '/makers');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testListSuccessfully()
+    {
+        $client = static::createClient();
+        $user = $this->getUser('viewer@example.com');
+        $client->loginUser($user);
+        $client->request('GET', '/makers');
 
         $this->assertResponseIsSuccessful();
     }
