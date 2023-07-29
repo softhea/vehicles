@@ -34,8 +34,27 @@ class MakerControllerTest extends ApiTestCase
         $client = static::createClient();
         $user = $this->getUser('viewer@example.com');
         $client->loginUser($user);
-        $client->request('GET', '/makers');
+
+        /** @var ApiTestResponse $response */
+        $response = $client->request('GET', '/makers');
 
         $this->assertResponseIsSuccessful();
+
+        // dd($response->getContent());
+
+        $this->assertJsonEquals([
+            [
+                'id' => 1,
+                'name' => 'BMW',
+            ],
+            [
+                'id' => 2,
+                'name' => 'Audi',
+            ],
+            [
+                'id' => 3,
+                'name' => 'VW',
+            ],
+        ]);
     }
 }
