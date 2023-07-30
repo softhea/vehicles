@@ -7,17 +7,21 @@ use App\Repository\PropertyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
+#[Index(name: "name_idx", columns: ["name"])]
 #[ApiResource]
 class Property
-{
+{ 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['api'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(targetEntity: VehicleProperty::class, mappedBy: 'property', cascade: ['persist', 'remove'])]

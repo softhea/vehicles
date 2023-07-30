@@ -3,23 +3,21 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Vehicle;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class VehicleController extends AbstractController
 {
-    #[Route('/vehicles/{id}', methods: ['GET'])]
-    public function show(int $id): Response
+    #[Route('/api/vehicles/{id}', methods: ['GET'])]
+    public function show(Vehicle $vehicle): Response
     {
-        return $this->json([
-            'test' => 123,
-        ]);
+        return $this->json($vehicle, Response::HTTP_OK, [], ['groups' => ['api']]);
     }
 
-    #[Route('/vehicles/{id}', methods: ['PATCH'])]
-    public function edit(int $id): Response
+    #[Route('/api/vehicles/{id}', methods: ['PATCH'])]
+    public function edit(Vehicle $vehicle): Response
     {
         return $this->json([
             'updated' => 123,

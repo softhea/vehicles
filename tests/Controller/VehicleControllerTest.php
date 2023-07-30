@@ -3,18 +3,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use ApiPlatform\Symfony\Bundle\Test\Response as ApiTestResponse;
 
-class VehicleControllerTest extends WebTestCase
+class VehicleControllerTest extends ApiTestCase
 {
     use UserTrait;
 
     public function testShowUnauthorized()
     {
         $client = static::createClient();
-        $client->request('GET', '/vehicles/1');
+        $client->request('GET', '/api/vehicles/1');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
     }
@@ -24,9 +24,19 @@ class VehicleControllerTest extends WebTestCase
         $client = static::createClient();
         $user = $this->getUser('user@example.com');
         $client->loginUser($user);
-        $client->request('GET', '/vehicles/1');
+        $client->request('GET', '/api/vehicles/1');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testShowNotFound()
+    {
+        $client = static::createClient();
+        $user = $this->getUser('viewer@example.com');
+        $client->loginUser($user);
+        $client->request('GET', '/api/vehicles/999');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
     public function testShowSuccessfully()
@@ -34,7 +44,7 @@ class VehicleControllerTest extends WebTestCase
         $client = static::createClient();
         $user = $this->getUser('viewer@example.com');
         $client->loginUser($user);
-        $client->request('GET', '/vehicles/1');
+        $client->request('GET', '/api/vehicles/1');
 
         $this->assertResponseIsSuccessful();
     }
@@ -42,7 +52,7 @@ class VehicleControllerTest extends WebTestCase
     public function testEditUnauthorized()
     {
         $client = static::createClient();
-        $client->request('PATCH', '/vehicles/1');
+        $client->request('PATCH', '/api/vehicles/1');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
     }
@@ -52,9 +62,19 @@ class VehicleControllerTest extends WebTestCase
         $client = static::createClient();
         $user = $this->getUser('viewer@example.com');
         $client->loginUser($user);
-        $client->request('PATCH', '/vehicles/1');
+        $client->request('PATCH', '/api/vehicles/1');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
+    }
+
+    public function testEditNotFound()
+    {
+        $client = static::createClient();
+        $user = $this->getUser('writer@example.com');
+        $client->loginUser($user);
+        $client->request('PATCH', '/api/vehicles/999');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_NOT_FOUND);
     }
 
     public function testEditSuccessfully()
@@ -62,7 +82,7 @@ class VehicleControllerTest extends WebTestCase
         $client = static::createClient();
         $user = $this->getUser('writer@example.com');
         $client->loginUser($user);
-        $client->request('PATCH', '/vehicles/1');
+        $client->request('PATCH', '/api/vehicles/1');
 
         $this->assertResponseIsSuccessful();
     }

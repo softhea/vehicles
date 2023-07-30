@@ -45,4 +45,16 @@ class PropertyRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+        /**
+        * @return Property[]
+        */
+        public function findFirst(int $limit): array
+        {
+            return $this->createQueryBuilder('p')
+                ->addOrderBy('p.id', 'ASC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult();
+        }
 }

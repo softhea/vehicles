@@ -15,13 +15,13 @@ class MakerFixtures extends Fixture
         $maker->setName('BMW');
         $manager->persist($maker);
 
-        $maker2 = new Maker();
-        $maker2->setName('Audi');
-        $manager->persist($maker2);
+        $maker = new Maker();
+        $maker->setName('Audi');
+        $manager->persist($maker);
 
-        $maker3 = new Maker();
-        $maker3->setName('VW');
-        $manager->persist($maker3);
+        $maker = new Maker();
+        $maker->setName('VW');
+        $manager->persist($maker);
 
         $manager->flush();
     }

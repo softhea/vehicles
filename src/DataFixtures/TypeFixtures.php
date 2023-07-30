@@ -15,13 +15,13 @@ class TypeFixtures extends Fixture
         $type->setName('motorcycle');
         $manager->persist($type);
 
-        $type2 = new Type();
-        $type2->setName('van');
-        $manager->persist($type2);
+        $type = new Type();
+        $type->setName('van');
+        $manager->persist($type);
 
-        $type3 = new Type();
-        $type3->setName('car');
-        $manager->persist($type3);
+        $type = new Type();
+        $type->setName('car');
+        $manager->persist($type);
 
         $manager->flush();
     }

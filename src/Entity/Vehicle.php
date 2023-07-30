@@ -3,30 +3,45 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\VehicleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: VehicleRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Get(normalizationContext: ['groups' => 'api']),
+        new GetCollection(normalizationContext: ['groups' => 'api'])
+    ],
+    order: ['id' => 'DESC'],
+    paginationEnabled: false,
+)]
 class Vehicle
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['api'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['api'])]
     private ?string $model = null;
 
     #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[Groups(['api'])]
     private ?Type $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    #[Groups(['api'])]
     private ?Maker $maker = null;
 
     #[ORM\OneToMany(targetEntity: VehicleProperty::class, mappedBy: 'vehicle', cascade: ['persist', 'remove'])]
+    #[Groups(['api'])]
     private Collection $properties;
 
     public function __construct()

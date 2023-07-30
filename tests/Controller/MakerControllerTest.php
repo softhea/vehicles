@@ -14,7 +14,7 @@ class MakerControllerTest extends ApiTestCase
     public function testListUnauthorized()
     {
         $client = static::createClient();
-        $client->request('GET', '/makers');
+        $client->request('GET', '/api/makers');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
     }
@@ -24,7 +24,7 @@ class MakerControllerTest extends ApiTestCase
         $client = static::createClient();
         $user = $this->getUser('user@example.com');       
         $client->loginUser($user);
-        $client->request('GET', '/makers');
+        $client->request('GET', '/api/makers');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
@@ -36,7 +36,7 @@ class MakerControllerTest extends ApiTestCase
         $client->loginUser($user);
 
         /** @var ApiTestResponse $response */
-        $response = $client->request('GET', '/makers');
+        $response = $client->request('GET', '/api/makers');
 
         $this->assertResponseIsSuccessful();
 
