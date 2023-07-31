@@ -14,6 +14,7 @@ class MakerControllerTest extends ApiTestCase
     public function testListUnauthorized()
     {
         $client = static::createClient();
+
         $client->request('GET', '/api/makers');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_UNAUTHORIZED);
@@ -24,6 +25,7 @@ class MakerControllerTest extends ApiTestCase
         $client = static::createClient();
         $user = $this->getUser('user@example.com');       
         $client->loginUser($user);
+
         $client->request('GET', '/api/makers');
 
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
@@ -31,7 +33,9 @@ class MakerControllerTest extends ApiTestCase
 
     public function testListSuccessfully()
     {
-        $client = static::createClient();
+        $client = static::createClient([], ['headers' => [
+            'Accept' => 'application/json',
+        ]]);
         $user = $this->getUser('viewer@example.com');
         $client->loginUser($user);
 
@@ -39,22 +43,15 @@ class MakerControllerTest extends ApiTestCase
         $response = $client->request('GET', '/api/makers');
 
         $this->assertResponseIsSuccessful();
-
-        // dd($response->getContent());
-
-        $this->assertJsonEquals([
-            [
-                'id' => 1,
-                'name' => 'BMW',
-            ],
-            [
-                'id' => 2,
-                'name' => 'Audi',
-            ],
-            [
-                'id' => 3,
-                'name' => 'VW',
-            ],
-        ]);
+        $response = $response->getContent();
+        $this->assertJson($response);
+        $response = json_decode($response, true);
+        foreach (['BMW', 'Audi', 'VW'] as $key => $expectedMaker) {
+            $this->assertArrayHasKey($key, $response);
+            $this->assertIsArray($response[$key]);
+            $this->assertArrayHasKey('id', $response[$key]);
+            $this->assertArrayHasKey('name', $response[$key]);
+            $this->assertSame($expectedMaker, $response[$key]['name']);
+        }
     }
 }

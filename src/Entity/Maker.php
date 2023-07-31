@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Get(normalizationContext: ['groups' => 'api']),
         new GetCollection(normalizationContext: ['groups' => 'api'])
     ],
-    order: ['id' => 'DESC'],
+    order: ['id' => 'ASC'],
     paginationEnabled: false,
 )]
 class Maker

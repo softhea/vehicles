@@ -5,5 +5,8 @@ namespace App\Service;
 
 class VehicleService
 {
-
+    public function edit(): void
+    {
+        
+    }
 }

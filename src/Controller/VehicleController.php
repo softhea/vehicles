@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Vehicle;
+use App\Service\VehicleService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,8 +18,10 @@ class VehicleController extends AbstractController
     }
 
     #[Route('/api/vehicles/{id}', methods: ['PATCH'])]
-    public function edit(Vehicle $vehicle): Response
+    public function edit(Vehicle $vehicle, VehicleService $vehicleService): Response
     {
+        $vehicleService->edit();
+
         return $this->json([
             'updated' => 123,
         ]);
