@@ -22,20 +22,20 @@ class MakerRepository extends ServiceEntityRepository
         parent::__construct($registry, Maker::class);
     }
 
-//    /**
-//     * @return Maker[] Returns an array of Maker objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+    * @return Maker[]
+    */
+    public function findByTypeId(int $typeId): array
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m', 'v')
+            ->leftJoin('m.vehicles', 'v')
+            ->andWhere('v.type = :type_id')
+            ->setParameter('type_id', $typeId)
+            ->orderBy('m.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    public function findOneBySomeField($value): ?Maker
 //    {

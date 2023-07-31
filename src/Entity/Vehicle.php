@@ -32,6 +32,7 @@ class Vehicle
     #[Groups(['api'])]
     private ?string $model = null;
 
+    // #[ORM\ManyToOne(inversedBy: 'vehicles', fetch: 'EAGER')]
     #[ORM\ManyToOne(inversedBy: 'vehicles')]
     #[Groups(['api'])]
     private ?Type $type = null;

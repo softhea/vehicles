@@ -33,7 +33,7 @@ class Maker
     #[Groups(['api'])]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'maker', targetEntity: Vehicle::class)]
+    #[ORM\OneToMany(mappedBy: 'maker', targetEntity: Vehicle::class)]    
     private Collection $vehicles;
 
     public function __construct()
@@ -64,27 +64,5 @@ class Maker
     public function getVehicles(): Collection
     {
         return $this->vehicles;
-    }
-
-    public function addVehicle(Vehicle $vehicle): static
-    {
-        if (!$this->vehicles->contains($vehicle)) {
-            $this->vehicles->add($vehicle);
-            $vehicle->setMaker($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVehicle(Vehicle $vehicle): static
-    {
-        if ($this->vehicles->removeElement($vehicle)) {
-            // set the owning side to null (unless already changed)
-            if ($vehicle->getMaker() === $this) {
-                $vehicle->setMaker(null);
-            }
-        }
-
-        return $this;
     }
 }

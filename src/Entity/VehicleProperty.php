@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\VehiclePropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
@@ -10,7 +9,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: VehiclePropertyRepository::class)]
 #[UniqueConstraint(name: "unique_vehicle_property", columns: ["vehicle_id", "property_id"])]
-#[ApiResource]
 class VehicleProperty
 {
     public const MAX_PROPERTIES_PER_VEHICLE = 7;
@@ -31,6 +29,7 @@ class VehicleProperty
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $value = null;
 
+    #[Groups(['api'])]
     public function getId(): ?int
     {
         return $this->id;
@@ -72,7 +71,7 @@ class VehicleProperty
         return $this->value;
     }
 
-    public function setValue(string $value): static
+    public function setValue(?string $value): static
     {
         $this->value = $value;
 

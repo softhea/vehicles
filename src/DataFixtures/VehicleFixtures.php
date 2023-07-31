@@ -41,37 +41,37 @@ class VehicleFixtures extends Fixture
         $vehicle->setMaker($vwMaker);
         $vehicle->setType($carType);
         $this->addProperties($vehicle);
-        $manager->persist($vehicle);
+        $this->manager->persist($vehicle);
 
         $vehicle = new Vehicle();
         $vehicle->setModel('VW Transporter');
         $vehicle->setMaker($vwMaker);
         $vehicle->setType($vanType);
         $this->addProperties($vehicle);
-        $manager->persist($vehicle);
+        $this->manager->persist($vehicle);
 
         $vehicle = new Vehicle();
         $vehicle->setModel('BMV 320');
         $vehicle->setMaker($bmwMaker);
         $vehicle->setType($carType);
         $this->addProperties($vehicle);
-        $manager->persist($vehicle);
+        $this->manager->persist($vehicle);
 
         $vehicle = new Vehicle();
         $vehicle->setModel('BMV R');
         $vehicle->setMaker($bmwMaker);
         $vehicle->setType($motorcycleType);
         $this->addProperties($vehicle);
-        $manager->persist($vehicle);
+        $this->manager->persist($vehicle);
 
         $vehicle = new Vehicle();
         $vehicle->setModel('Audi A6');
         $vehicle->setMaker($audiMaker);
         $vehicle->setType($carType);
         $this->addProperties($vehicle);
-        $manager->persist($vehicle);
+        $this->manager->persist($vehicle);
 
-        $manager->flush();
+        $this->manager->flush();
     }
 
     public function getDependencies()
