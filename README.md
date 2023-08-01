@@ -181,5 +181,5 @@ DELETE /api/properties/{PROPERTY_ID} to delete a Property
 ```
 
 ```
-DELETE /api/vehicle-properties/{PROPERTY_ID} to delete a VehicleProperty
+DELETE /api/vehicle-properties/{VEHICLE_PROPERTY_ID} to delete a VehicleProperty
 ```
