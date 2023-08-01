@@ -20,18 +20,6 @@ class MakerServiceTest extends TestCase
     {
         $this->makerRepository = $this->createMock(MakerRepository::class);
         $this->makerService = new MakerService($this->makerRepository);
-
-        $maker = new Maker();
-        $maker->setName('BMW');// Audi VW
-
-        $type = new Type();
-        $type->setName('motorcycle'); // var car
-
-        $vehicle = new Vehicle();
-        $vehicle
-            ->setModel('BMV R')
-            ->setMaker($maker)
-            ->setType($type);
     }
 
     public function testListSuccessfully()
