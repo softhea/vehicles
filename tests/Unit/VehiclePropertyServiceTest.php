@@ -4,20 +4,31 @@ declare(strict_types=1);
 namespace App\Tests\Unit;
 
 use App\Entity\VehicleProperty;
+use App\Service\PropertyService;
 use App\Service\VehiclePropertyService;
+use App\Validator\VehiclePropertyValidator;
 use Doctrine\ORM\EntityManager;
+use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class VehiclePropertyServiceTest extends TestCase
 {
     private VehiclePropertyService $vehiclePropertyService;
+    private MockObject|VehiclePropertyValidator $vehiclePropertyValidator;
     private MockObject|EntityManager $entityManager;
 
     protected function setUp(): void
     {
         $this->entityManager = $this->createMock(EntityManager::class);
-        $this->vehiclePropertyService = new VehiclePropertyService($this->entityManager);
+        $propertyService = $this->createMock(PropertyService::class);
+        $this->vehiclePropertyValidator = $this->createMock(VehiclePropertyValidator::class);
+
+        $this->vehiclePropertyService = new VehiclePropertyService(
+            $this->entityManager,
+            $propertyService,
+            $this->vehiclePropertyValidator
+        );
     }
 
     public function updateValueSuccessfullyDataProvider(): array
@@ -44,6 +55,9 @@ class VehiclePropertyServiceTest extends TestCase
                 ->expects($this->never())
                 ->method('flush');
         }
+        $this->vehiclePropertyValidator
+            ->expects($this->once())
+            ->method('validateValue');
 
         $vehicleProperty = new VehicleProperty();
         $vehicleProperty->setValue('initial_value');
@@ -55,7 +69,12 @@ class VehiclePropertyServiceTest extends TestCase
 
     public function testUpdateValueEmptyStringThrowsException()
     {
-        $this->expectExceptionMessage('Value of VehicleProperty cannot be an empty string!');
+        $this->expectExceptionMessage('Exception message');
+
+        $this->vehiclePropertyValidator
+            ->expects($this->once())
+            ->method('validateValue')
+            ->willThrowException(new Exception('Exception message'));
 
         $this->entityManager
             ->expects($this->never())

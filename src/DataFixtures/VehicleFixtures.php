@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\Property;
 use App\Entity\Vehicle;
 use App\Entity\VehicleProperty;
 use App\Repository\MakerRepository;
@@ -13,20 +14,20 @@ use Doctrine\Persistence\ObjectManager;
 
 class VehicleFixtures extends Fixture
 {    
+    /** @var Property[] */
     private array $properties;
     private ObjectManager $manager;
 
     public function __construct(
         private MakerRepository $makerRepository,
-        private TypeRepository $typeRepository,
-        PropertyRepository $propertyRepository
-    ) {
-        $this->properties = $propertyRepository->findFirst(VehicleProperty::MAX_PROPERTIES_PER_VEHICLE);
-    }
+        private TypeRepository $typeRepository
+    ) {}
 
     public function load(ObjectManager $manager): void
     {
         $this->manager = $manager;
+
+        $this->createProperties();
 
         $vwMaker = $this->makerRepository->findOneBy(['name' => 'VW']);
         $bmwMaker = $this->makerRepository->findOneBy(['name' => 'BMW']);
@@ -40,37 +41,37 @@ class VehicleFixtures extends Fixture
         $vehicle->setModel('VW Golf 7');
         $vehicle->setMaker($vwMaker);
         $vehicle->setType($carType);
-        $this->addProperties($vehicle);
         $this->manager->persist($vehicle);
+        $this->addProperties($vehicle);
 
         $vehicle = new Vehicle();
         $vehicle->setModel('VW Transporter');
         $vehicle->setMaker($vwMaker);
         $vehicle->setType($vanType);
-        $this->addProperties($vehicle);
         $this->manager->persist($vehicle);
+        $this->addProperties($vehicle);
 
         $vehicle = new Vehicle();
         $vehicle->setModel('BMV 320');
         $vehicle->setMaker($bmwMaker);
         $vehicle->setType($carType);
-        $this->addProperties($vehicle);
         $this->manager->persist($vehicle);
+        $this->addProperties($vehicle);
 
         $vehicle = new Vehicle();
         $vehicle->setModel('BMV R');
         $vehicle->setMaker($bmwMaker);
         $vehicle->setType($motorcycleType);
-        $this->addProperties($vehicle);
         $this->manager->persist($vehicle);
+        $this->addProperties($vehicle);
 
         $vehicle = new Vehicle();
         $vehicle->setModel('Audi A6');
         $vehicle->setMaker($audiMaker);
         $vehicle->setType($carType);
-        $this->addProperties($vehicle);
         $this->manager->persist($vehicle);
-
+        $this->addProperties($vehicle);
+        
         $this->manager->flush();
     }
 
@@ -79,12 +80,57 @@ class VehicleFixtures extends Fixture
         return [
             MakerFixtures::class,
             TypeFixtures::class,
-            PropertyFixtures::class,
         ];
+    }
+
+    private function createProperties()
+    {
+        $property = new Property();
+        $property->setName('year');
+        $this->manager->persist($property);
+        $this->properties[] = $property;
+
+        $property = new Property();
+        $property->setName('engine_capacity');
+        $this->manager->persist($property);
+        $this->properties[] = $property;
+
+        $property = new Property();
+        $property->setName('engine_power');
+        $this->manager->persist($property);
+        $this->properties[] = $property;
+
+        $property = new Property();
+        $property->setName('fuel');
+        $this->manager->persist($property);
+        $this->properties[] = $property;
+
+        $property = new Property();
+        $property->setName('top_speed');
+        $this->manager->persist($property);
+        $this->properties[] = $property;
+
+        $property = new Property();
+        $property->setName('weight');
+        $this->manager->persist($property);
+        $this->properties[] = $property;
+
+        $property = new Property();
+        $property->setName('color');
+        $this->manager->persist($property);
+        $this->properties[] = $property;
+
+        $property = new Property();
+        $property->setName('tyre_sizes');
+        $this->manager->persist($property);
+        $this->properties[] = $property;
+
+        $this->manager->flush();
     }
 
     private function addProperties(Vehicle $vehicle): void
     {
+        /** @var Property $property */
         foreach ($this->properties as $property) {
             $vehicleProperty = new VehicleProperty();
             $vehicleProperty->setVehicle($vehicle);

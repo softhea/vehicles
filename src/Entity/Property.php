@@ -6,11 +6,11 @@ use App\Repository\PropertyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Index;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
-#[Index(name: "name_idx", columns: ["name"])]
+#[UniqueConstraint(name: "unique_name", columns: ["name"])]
 class Property
 { 
     #[ORM\Id]
@@ -55,19 +55,8 @@ class Property
         return $this->vehicles;
     }
 
-    public function addVehicle(Vehicle $vehicle): static
+    public function __toString(): string
     {
-        if (!$this->vehicles->contains($vehicle)) {
-            $this->getVehicles()->add($vehicle);
-        }
-
-        return $this;
-    }
-
-    public function removeVehicle(Vehicle $vehicle): static
-    {
-        $this->vehicles->removeElement($vehicle);
-
-        return $this;
+        return 'property_id: '.$this->getId().' name: '.$this->getName();
     }
 }

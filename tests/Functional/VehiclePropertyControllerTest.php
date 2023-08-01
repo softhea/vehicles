@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Tests\Functional;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
-use App\Tests\Functional\Traits\VehiclePropertyTrait;
-use App\Tests\Functional\Traits\UserTrait;
+use App\Tests\Functional\Trait\VehiclePropertyTrait;
+use App\Tests\Functional\Trait\UserTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 class VehiclePropertyControllerTest extends ApiTestCase

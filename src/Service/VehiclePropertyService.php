@@ -5,7 +5,7 @@ namespace App\Service;
 
 use App\Entity\Vehicle;
 use App\Entity\VehicleProperty;
-use App\Repository\PropertyRepository;
+use App\Validator\VehiclePropertyValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 
@@ -13,7 +13,8 @@ class VehiclePropertyService
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private PropertyRepository $propertyRepository,
+        private PropertyService $propertyService,
+        private VehiclePropertyValidator $vehiclePropertyValidator
     ) {}
     
     /**
@@ -21,19 +22,9 @@ class VehiclePropertyService
      */
     public function create(Vehicle $vehicle, string $name, ?string $value, bool $persist = true): VehicleProperty
     {
-        // todo move validation
-        if ('' === $value) {
-            throw new Exception('Value of VehicleProperty cannot be an empty string!');
-        }
+        $this->vehiclePropertyValidator->validateCreate($vehicle, $name, $value);
 
-        // todo move validation
-        if (VehicleProperty::MAX_PROPERTIES_PER_VEHICLE <= $vehicle->getProperties()->count()) {
-            throw new Exception('Max No of Vehicle Properties already achieved!');
-        }
-
-        // todo move find or create 
-        // todo validate name
-        $property = $this->propertyRepository->findOneBy(['name' => $name]);
+        $property = $this->propertyService->findOrCreate($name);
 
         $vehicleProperty = new VehicleProperty();
         $vehicleProperty->setVehicle($vehicle);
@@ -54,9 +45,7 @@ class VehiclePropertyService
      */
     public function updateValue(VehicleProperty $vehicleProperty, ?string $value, bool $persist = true): void
     {
-        if ('' === $value) {
-            throw new Exception('Value of VehicleProperty cannot be an empty string!');
-        }
+        $this->vehiclePropertyValidator->validateValue($value);
 
         $vehicleProperty->setValue($value);
 

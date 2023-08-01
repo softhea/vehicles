@@ -103,7 +103,6 @@ class Vehicle
     {
         if (!$this->properties->contains($property)) {
             $this->properties->add($property);
-            $property->addVehicle($this);
         }
 
         return $this;
@@ -111,9 +110,7 @@ class Vehicle
 
     public function removeProperty(Property $property): static
     {
-        if ($this->properties->removeElement($property)) {
-            $property->removeVehicle($this);
-        }
+        $this->properties->removeElement($property);
 
         return $this;
     }

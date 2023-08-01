@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Traits;
+namespace App\Tests\Functional\Trait;
 
 use App\Entity\Type;
 use App\Repository\TypeRepository;

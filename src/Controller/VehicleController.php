@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VehicleController extends AbstractController
 {
-    #[Route('/api/vehicles2/{id}', methods: ['GET'])]
+    #[Route('/api/vehicles/{id}', methods: ['GET'])]
     public function show(Vehicle $vehicle): Response
     {
         return $this->json($vehicle, Response::HTTP_OK, [], ['groups' => ['api']]);

@@ -18,11 +18,11 @@ class VehicleProperty
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: Vehicle::class, cascade: ['persist', 'remove'], fetch: 'LAZY')]
+    #[ORM\ManyToOne(targetEntity: Vehicle::class, cascade: ['remove'], fetch: 'LAZY')]
     #[ORM\JoinColumn(name: 'vehicle_id', referencedColumnName: 'id', nullable: false)]
     private Vehicle $vehicle;
 
-    #[ORM\ManyToOne(targetEntity: Property::class, cascade: ['persist', 'remove'], fetch: 'LAZY')]
+    #[ORM\ManyToOne(targetEntity: Property::class, cascade: ['remove'], fetch: 'LAZY')]
     #[ORM\JoinColumn(name: 'property_id', referencedColumnName: 'id', nullable: false)]
     private Property $property;
 

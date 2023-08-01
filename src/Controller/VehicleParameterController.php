@@ -5,6 +5,8 @@ namespace App\Controller;
 
 use App\Entity\Vehicle;
 use App\Entity\VehicleProperty;
+use App\Request\CreateVehiclePropertyRequest;
+use App\Request\EditVehiclePropertyRequest;
 use App\Service\VehiclePropertyService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,19 +22,13 @@ class VehicleParameterController extends AbstractController
         Request $request, 
         VehiclePropertyService $vehiclePropertyService
     ): Response {
-        $request = json_decode($request->getContent(), true);
-        if (!array_key_exists('value', (array)$request)) {
-            return $this->json(
-                ['error' => '\'value\' parameter missing from Request!'], 
-                Response::HTTP_BAD_REQUEST
-            );
-        }
-
-        $value = null === $request['value'] ? null : (string)$request['value'];
-        $name = 'color';
-
         try {
-            $vehicleProperty = $vehiclePropertyService->create($vehicle, $name, $value);
+            $request = new CreateVehiclePropertyRequest($request->getContent());
+            $vehicleProperty = $vehiclePropertyService->create(
+                $vehicle, 
+                $request->name, 
+                $request->value
+            );
         } catch (Exception $exception) {
             return $this->json(
                 ['error' => $exception->getMessage()], 
@@ -49,18 +45,12 @@ class VehicleParameterController extends AbstractController
         Request $request, 
         VehiclePropertyService $vehiclePropertyService
     ): Response {
-        $request = json_decode($request->getContent(), true);
-        if (!array_key_exists('value', (array)$request)) {
-            return $this->json(
-                ['error' => '\'value\' parameter missing from Request!'], 
-                Response::HTTP_BAD_REQUEST
-            );
-        }
-
-        $value = null === $request['value'] ? null : (string)$request['value'];
-
         try {
-            $vehiclePropertyService->updateValue($vehicleProperty, $value);
+            $request = new EditVehiclePropertyRequest($request->getContent());
+            $vehiclePropertyService->updateValue(
+                $vehicleProperty, 
+                $request->value
+            );
         } catch (Exception $exception) {
             return $this->json(
                 ['error' => $exception->getMessage()], 

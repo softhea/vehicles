@@ -5,8 +5,8 @@ namespace App\Tests\Functional;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use App\Tests\Functional\Traits\TypeTrait;
-use App\Tests\Functional\Traits\UserTrait;
+use App\Tests\Functional\Trait\TypeTrait;
+use App\Tests\Functional\Trait\UserTrait;
 
 class MakerControllerTest extends ApiTestCase
 {
