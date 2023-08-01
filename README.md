@@ -49,7 +49,7 @@ HEADER "Authorization": "Bearer {TOKEN}"
 ## Implemented API Endpoints
 
 
-#### ```POST /api/login_check``` to login  {TOKEN} in the response
+#### ```POST /api/login_check``` to login 
 Request:
 ```
 {
