@@ -6,7 +6,6 @@ namespace App\Tests\Functional;
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\Tests\Functional\Trait\PropertyTrait;
 use Symfony\Component\HttpFoundation\Response;
-use ApiPlatform\Symfony\Bundle\Test\Response as ApiTestResponse;
 use App\Tests\Functional\Trait\UserTrait;
 use App\Tests\Functional\Trait\VehicleTrait;
 
@@ -56,7 +55,6 @@ class VehicleControllerTest extends ApiTestCase
         $user = $this->getUser('viewer@example.com');
         $client->loginUser($user);
 
-        /** @var ApiTestResponse $response */
         $response = $client->request('GET', '/api/vehicles/'.$firstVehicle->getId());
 
         $this->assertResponseIsSuccessful();
