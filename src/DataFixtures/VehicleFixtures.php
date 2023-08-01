@@ -130,7 +130,6 @@ class VehicleFixtures extends Fixture
 
     private function addProperties(Vehicle $vehicle): void
     {
-        /** @var Property $property */
         foreach ($this->properties as $property) {
             $vehicleProperty = new VehicleProperty();
             $vehicleProperty->setVehicle($vehicle);
