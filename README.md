@@ -31,10 +31,11 @@ php bin/phpunit
 
 ## Assumptions
 
-I implemented 3 static Vehicle Properties in the Vehicle Entity and all the rest are dinamically built in the pivot Entity VehicleProperty using Property Entity. 
-So I considered 7 the max no of Vehicle Properties to assign to a Vehicle.
+# I implemented 3 static Vehicle Properties in the Vehicle Entity and all the rest are dinamically built in the pivot Entity VehicleProperty using the Property Entity. 
+# So I considered the Max No of Vehicle Properties to assign to a Vehicle - 7.
 
-I only created tests for the 3 asked Endpoints
+# I created Functional Tests for the 3 asked Endpoints and Unit Tests for their Service methods.
+# I imlemented 2 User Roles: ROLE_VIEWER for GET Endpoints and ROLE_WRITER for the rest, except for the login Endpoint, which is publicly accessable
 
 ## Authentication for all requests except for login
 
