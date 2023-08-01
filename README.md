@@ -121,8 +121,8 @@ Response:
 }
 ```
 
-#### PATCH ```/api/vehicle-properties/{VEHICLE_PROPERTY_ID}``` to update the value of an existing VehicleProperty
-Rquest:
+#### ```PATCH /api/vehicle-properties/{VEHICLE_PROPERTY_ID}``` to update the value of an existing VehicleProperty
+Request:
 ```
 {
   "value" => {VALUE}
