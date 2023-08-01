@@ -167,8 +167,11 @@ DELETE /api/makers/{MAKER_ID} to delete a Maker
 ```
 
 ```
-PATCH/PUT /api/makers/{MAKER_ID} to update a Maker
-DELETE /api/makers/{MAKER_ID} to delete a Maker
+POST /api/users to create a new User
+GET /api/users to list Users
+GET /api/users/{USER_ID} to show User details
+PATCH/PUT /api/users/{USER_ID} to partial or fully update an User
+DELETE /api/users/{USER_ID} to delete an User
 ```
 
 ```
