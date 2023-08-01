@@ -31,10 +31,16 @@ php bin/phpunit
 
 ## Assumptions
 
-I implemented 3 static Vehicle Properties in the Vehicle Entity and all the rest are dinamically built in the pivot table VehicleProperty using Property Entity
-So I considered 7 the max no of Vehicle Properties to assign to a Vehicle
+I implemented 3 static Vehicle Properties in the Vehicle Entity and all the rest are dinamically built in the pivot Entity VehicleProperty using Property Entity. 
+So I considered 7 the max no of Vehicle Properties to assign to a Vehicle.
 
 I only created tests for the 3 asked Endpoints
+
+## Authentication for all requests except for login
+
+```
+HEADER "Authorization": "Bearer {TOKEN}"
+```
 
 ## Implemented API Endpoints
 
@@ -140,12 +146,6 @@ Response:
   "name" => "{PROPERTY_NAME}",
   "value" => "{PROPERTY_VALUE}"
 }
-```
-
-## Authentication for all requests except for login
-
-```
-HEADER "Authorization": "Bearer {TOKEN}"
 ```
 
 ## Not implemented API Endpoints that are needed for this project
