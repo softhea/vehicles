@@ -116,7 +116,7 @@ Request:
 }
 ```
 Response:
-'''
+```
 {
   "id" => {VEHICLE_PROPERTY_ID}
   "name" => "{PROPERTY_NAME}",
