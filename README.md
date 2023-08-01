@@ -44,9 +44,8 @@ HEADER "Authorization": "Bearer {TOKEN}"
 
 ## Implemented API Endpoints
 
-```
-POST /api/login_check to login  {TOKEN} in the response
-```
+
+#### ```POST /api/login_check``` to login  {TOKEN} in the response
 Request:
 ```
 {
@@ -61,9 +60,7 @@ Response:
 }
 ```
 
-```
-GET /api/makers to list Makers 
-```
+#### ```GET /api/makers``` to list Makers 
 Reponse:
 ```
 [
@@ -74,9 +71,7 @@ Reponse:
 ]
 ```
 
-```
-GET /api/makers?type_id={TYPE_ID} to filter Makers by Vehicle Type ID
-```
+#### ```GET /api/makers?type_id={TYPE_ID}``` to filter Makers by Vehicle Type ID
 Response:
 ```
 {
@@ -85,9 +80,7 @@ Response:
 }
 ```
 
-```
-GET /api/vehicles/{VEHICLE_ID} to show all details of a specific Vehicle
-```
+#### ```GET /api/vehicles/{VEHICLE_ID}``` to show all details of a specific Vehicle
 Response:
 ```
 {
@@ -111,9 +104,7 @@ Response:
 }
 ```
 
-```
-POST /api/vehicles/{VEHICLE_ID}/properties to create a new VehicleProperty; it creates a new Property if the Property Name doesn't exist
-```
+#### ```POST /api/vehicles/{VEHICLE_ID}/properties``` to create a new VehicleProperty; it creates a new Property if the Property Name doesn't exist
 Request:
 ```
 {
@@ -130,9 +121,7 @@ Response:
 }
 ```
 
-```
-PATCH /api/vehicle-properties/{VEHICLE_PROPERTY_ID} to update the value of an existing VehicleProperty
-```
+#### PATCH ```/api/vehicle-properties/{VEHICLE_PROPERTY_ID}``` to update the value of an existing VehicleProperty
 Rquest:
 ```
 {
