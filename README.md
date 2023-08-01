@@ -37,7 +37,7 @@ So I considered the Max No of Vehicle Properties to assign to a Vehicle - 7.
 
 I created Functional Tests for the 3 asked Endpoints and Unit Tests for their Service methods.
 
-I imlemented 2 User Roles: ROLE_VIEWER for GET Endpoints and ROLE_WRITER for the rest, except for the login Endpoint, which is publicly accessable
+I imlemented 2 User Roles: ROLE_VIEWER for GET Endpoints and ROLE_WRITER for the rest, except for the login Endpoint, which is publicly accessible.
 ```
 
 ## Authentication for all requests except for login
